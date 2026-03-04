@@ -1,4 +1,7 @@
   const boton = document.getElementById("toggleModo");
+  const continuar = document.getElementById("ContinuarButton");
+  const checkOrganizador = document.getElementById("CheckOrganizador");
+  const textBoxOrganizador = document.getElementById("textBoxOrganizador");
 
   // Aplicar modo guardado al cargar
   window.addEventListener("DOMContentLoaded", () => {
@@ -26,4 +29,14 @@
       boton.classList.remove("btn-dark");
       boton.classList.add("btn-light");
     }
+  });
+
+  continuar.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    NombreOrganizador = textBoxOrganizador.value;
+    if (checkOrganizador.checked) {
+      localStorage.setItem("0", NombreOrganizador);
+    }
+    
   });
