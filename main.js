@@ -1,8 +1,20 @@
+  //Botones
   const boton = document.getElementById("toggleModo");
   const continuarOrganizador = document.getElementById("ContinuarButtonOrganizador");
+  const AgregarIntegrantes = document.getElementById("AgregarButtonIntegrante");
+  const ContinuarIntegrantes = document.getElementById("ContinuarButtonIntegrante");
+  const botonEliminar = document.querySelectorAll(".btn-close");
+  //Inputs de texto
   const checkOrganizador = document.getElementById("CheckOrganizador");
-  const textBoxIntegrante = document.getElementById("ContainerIntegrantes");
+  const textBoxIntegrante = document.getElementById("textBoxIntegrante");
   const textBoxOrganizador = document.getElementById("textBoxOrganizador");
+  //Contenedores
+  const Card_Integrante = document.getElementById("Card_Integrante");
+  const Card_Organizador = document.getElementById("Card_Organizador");
+  const Card_Exclusiones = document.getElementById("Card_Exclusiones");
+  const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
+  //Array para los integrantes
+  const Integrantes = [];
 
   // Aplicar modo guardado al cargar
   window.addEventListener("DOMContentLoaded", () => {
@@ -15,6 +27,11 @@
       boton.classList.remove("btn-light");
       boton.classList.add("btn-dark");
     }
+    localStorage.clear();
+    localStorage.setItem("modo", modoGuardado)
+    Card_Integrante.style.display = "none";
+    Card_Organizador.style.display = "block";
+    Card_Exclusiones.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -40,23 +57,68 @@
     if (checkOrganizador.checked) {
       localStorage.setItem("0", NombreOrganizador);
       agregarIntegrante(0, NombreOrganizador);
-    }else{
-      let html = `<div class="container-flex">
-                  <input type="text" name="textBoxIntegrante" id="textBoxIntegrante-${index}" value="nombre" ${index}"></input>
-                </div>`
     }
-    
+    Card_Integrante.style.display = "block";
+    Card_Organizador.style.display = "none";
   });
 
-  function agregarIntegrante(index){
-    let html = `<input type="text" name="textBoxIntegrante" id="textBoxIntegrante-${index}" placeholder="Introduzca su nombre"></input>`
-    textBoxIntegrante.innerHTML= html;
+  let indexIntegrantes = 1;
+  AgregarIntegrantes.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    NombreIntegrante = textBoxIntegrante.value;
+    if(NombreIntegrante != null){
+      agregarIntegrante(indexIntegrantes, NombreIntegrante);
+      indexIntegrantes++;
+    }
+  });
+
+  ContinuarButtonIntegrante.addEventListener("click", (e) => {
+    Swal.fire({
+      title: "¿Quieres excluir ciertos sorteos?",
+      text: "Si gusta, puede evitar que ciertos integrantes saquen nombres especificos",
+      icon: "question",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      denyButtonColor: "#d33",
+      confirmButtonText: "Si",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if(result.isConfirmed){
+        Card_Integrante.style.display = "none";
+        Exclusiones();
+      }else if(result.isDenied){
+        Card_Integrante.style.display = "none";
+      }
+    });
+  });
+
+  botonEliminar.forEach((button) => {
+    button.addEventListener("click", (e)  => {
+      const Item = e.target.parentElement;
+      Item.remove();
+    });
+  });
+
+  //Funciones Internas
+  function agregarIntegrante(index, nombre){
+    let html
+    Integrantes.push({
+      id: index,
+      nombre: nombre,
+      exclusiones: "none"
+    })
+    if (nombre != null) {
+       html = `<div class="container-flex" id="container-${index}">
+                  <input type="text" name="textBoxIntegrante" id="textBoxIntegrante-${index}" value="${nombre}" disabled></input>
+                  <button type="button" class="btn-close" aria-label="Close"</button>
+                </div>`
+      ContainerIntegrantes.innerHTML+= html;
+    }
+    localStorage.setItem("0", JSON.stringify(Integrantes));
   }
 
-  //Sobrecarga de la misma funcion
-  function agregarIntegrante(index, nombre){
-    let html = `<div class="container-flex">
-                  <input type="text" name="textBoxIntegrante" id="textBoxIntegrante-${index}" value="nombre" ${index}"></input>
-                </div>`
-    textBoxIntegrante.innerHTML+= html;
+  function Exclusiones(){
+    Card_Exclusiones.style.display = "block";
   }
