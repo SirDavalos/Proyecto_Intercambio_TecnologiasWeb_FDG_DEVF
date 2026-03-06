@@ -4,6 +4,7 @@
   const AgregarIntegrantes = document.getElementById("AgregarButtonIntegrante");
   const ContinuarIntegrantes = document.getElementById("ContinuarButtonIntegrante");
   const botonEliminar = document.querySelectorAll(".btn-close");
+  const ContinuarExclusiones = document.getElementById("ContinuarButtonExclusiones");
   //Inputs de texto
   const checkOrganizador = document.getElementById("CheckOrganizador");
   const textBoxIntegrante = document.getElementById("textBoxIntegrante");
@@ -13,13 +14,13 @@
   const Card_Organizador = document.getElementById("Card_Organizador");
   const Card_Exclusiones = document.getElementById("Card_Exclusiones");
   const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
+  const Exclusiones_Opciones = document.getElementById("Exclusiones_Opciones");
   //Array para los integrantes
   const Integrantes = [];
 
   // Aplicar modo guardado al cargar
   window.addEventListener("DOMContentLoaded", () => {
     const modoGuardado = localStorage.getItem("modo");
-
     //TEMPORAL, Aqui se carga el card de integrantes
     if (modoGuardado === "oscuro") {
       document.body.classList.add("modo-oscuro");
@@ -55,7 +56,6 @@
 
     NombreOrganizador = textBoxOrganizador.value;
     if (checkOrganizador.checked) {
-      localStorage.setItem("0", NombreOrganizador);
       agregarIntegrante(0, NombreOrganizador);
     }
     Card_Integrante.style.display = "block";
@@ -71,6 +71,8 @@
       agregarIntegrante(indexIntegrantes, NombreIntegrante);
       indexIntegrantes++;
     }
+    
+    textBoxIntegrante.value = "";
   });
 
   ContinuarButtonIntegrante.addEventListener("click", (e) => {
@@ -94,6 +96,23 @@
     });
   });
 
+  ContinuarExclusiones.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    Integrantes.forEach(ItemIntegrante => {
+      let index = 0;
+      Integrantes.forEach(ItemOpciones => {
+        const checkId = document.getElementById(`check_${ItemIntegrante.id}_${ItemOpciones.id}`);
+        if(checkId.checked){
+          ItemIntegrante.exclusiones[index] = ItemOpciones.nombre;
+          index++;
+        }
+      })
+    })
+
+    localStorage.setItem("Integrantes", JSON.stringify(Integrantes));
+  })
+
   botonEliminar.forEach((button) => {
     button.addEventListener("click", (e)  => {
       const Item = e.target.parentElement;
@@ -107,7 +126,7 @@
     Integrantes.push({
       id: index,
       nombre: nombre,
-      exclusiones: "none"
+      exclusiones: []
     })
     if (nombre != null) {
        html = `<div class="container-flex" id="container-${index}">
@@ -116,9 +135,34 @@
                 </div>`
       ContainerIntegrantes.innerHTML+= html;
     }
-    localStorage.setItem("0", JSON.stringify(Integrantes));
+    localStorage.setItem("Integrantes", JSON.stringify(Integrantes));
   }
 
   function Exclusiones(){
+    let html;
     Card_Exclusiones.style.display = "block";
+
+    Integrantes.forEach(ItemIntegrante => {
+      let opciones = ``;
+      Integrantes.forEach(ItemOpciones => {
+        if(ItemIntegrante.id != ItemOpciones.id){
+          opciones += `<li>
+                        <div class="form-check form-check-reverse">
+                          <input class="form-check-input" type="checkbox" value="" id="check_${ItemIntegrante.id}_${ItemOpciones.id}">
+                          <label class="form-check-label" for="check-${ItemIntegrante.id}-${ItemOpciones.id}">
+                            ${ItemOpciones.nombre}
+                          </label>
+                        </div>
+                      </li>`
+        }
+      }); 
+      html = `<div class="input-group mb-3">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">${ItemIntegrante.nombre}</button>
+                <ul class="dropdown-menu">
+                  ${opciones}
+                </ul>
+              </div>`
+      Exclusiones_Opciones.innerHTML += html;
+    });
+    
   }
