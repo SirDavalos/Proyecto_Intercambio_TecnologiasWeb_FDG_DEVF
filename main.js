@@ -129,10 +129,12 @@
       exclusiones: []
     })
     if (nombre != null) {
-       html = `<div class="container-flex" id="container-${index}">
-                  <input type="text" name="textBoxIntegrante" id="textBoxIntegrante-${index}" value="${nombre}" disabled></input>
-                  <button type="button" class="btn-close" aria-label="Close"</button>
-                </div>`
+       html = `
+        <div class="list-group-item d-flex justify-content-between align-items-center" id="container-${index}">
+            <input type="text" class="form-control me-2" value="${nombre}" disabled>
+            <button type="button" class="btn-close"></button>
+        </div>
+        `
       ContainerIntegrantes.innerHTML+= html;
     }
     localStorage.setItem("Integrantes", JSON.stringify(Integrantes));
