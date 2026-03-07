@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Modo Claro/Oscuro</title>
+    <title>SortTech</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -216,18 +216,12 @@
                         <div class="card-body">
 
                             <h3 class="text-center mb-4">Resumen de Intercambio</h3>
-                            <h3 class="text-center mb-4">Resumen de Intercambio</h3>
 
                             <p class="text-center small">
                                 Aqui se muestra toda la Informacion del intercambio
                             </p>
 
-                            <div class="py-3" id="ContainerInfoGeneral">
-                                
-                            </div>
-                            <div class="py-3" id="ContainerInfoGeneral">
-                                
-                            </div>
+                            <div class="py-3" id="ContainerInfoGeneral"></div>
 
                             <div class="table-responsive py-3" id="ContainerInfoPersona">
                                 <table class="table table-bordered table-secondary">
@@ -240,13 +234,36 @@
                                     </thead>
                                     <tbody id="Tabla_Cuerpo">
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="py-3">
+                                <a href="#" id="ContinuarButtonPresupuesto" class="btn btn-success">
+                                    Continuar
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="py-3">
-                        <a href="#" id="ContinuarButtonPresupuesto" class="btn btn-success">
-                            Continuar
-                        </a>
+
+                    <!-- Sorteo -->
+                     <div class="card shadow-lg border border-2" id="Card_Sorteo" style="max-width:1200px; width:100%;">
+                        <div class="card-body">
+
+                            <h3 class="text-center mb-4">¡Ve quien te toco!</h3>
+                             <p class="text-secondary small">
+                                Arrastre su nombre a la caja para ver quien le toco
+                            </p>
+                            <div id="layoutIntegrantes">
+
+                            </div>
+                            <div id="hueco_sorteo" class="container py-3">
+                                
+                            </div>
+
+                            <div class="py-3">
+                                <h3 class="text-center mb-4" id="nombre_Sorteado"></h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

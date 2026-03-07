@@ -400,7 +400,7 @@
       InfoIntegrantes.forEach(Item => {
         let num = random[index];
         let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length = 0) {
+        if (exclusiones.length === 0) {
             eleccion = {
             nombre: Item.nombre,
             sorteado: InfoIntegrantes[num].nombre
@@ -435,7 +435,7 @@
           DragBox.addEventListener("dragstart", (e) => {
             const data = {
               id: id,
-              sorteado: sorteo[index]};
+              sorteado: sorteo[index].sorteado};
             e.dataTransfer.setData("text/plain", JSON.stringify(data));
 
             e.dataTransfer.effectAllowed = "move";
