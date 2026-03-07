@@ -9,6 +9,7 @@
   const ContinuarButtonCelebracion = document.getElementById("ContinuarButtonCelebracion");
   const ContinuarButtonFecha = document.getElementById("ContinuarButtonFecha");
   const ContinuarButtonPresupuesto = document.getElementById("ContinuarButtonPresupuesto");
+  const ContinuarButtonMostrar = document.getElementById("ContinuarButtonMostrar");
   //Inputs
   const checkOrganizador = document.getElementById("CheckOrganizador");
   const textBoxIntegrante = document.getElementById("textBoxIntegrante");
@@ -17,6 +18,7 @@
   const textBoxPresupuesto = document.getElementById("textBoxPresupuesto");
   const inputFecha = document.getElementById("inputFecha");
   const Tabla_Cuerpo = document.getElementById("Tabla_Cuerpo");
+  const nombre_Sorteado = document.getElementById("nombre_Sorteado");
   //Contenedores
   const Card_Integrante = document.getElementById("Card_Integrante");
   const Card_Organizador = document.getElementById("Card_Organizador");
@@ -29,8 +31,13 @@
   const Card_Celebracion = document.getElementById("Card_Celebracion");
   const Card_Fecha = document.getElementById("Card_Fecha");
   const Card_Mostrar = document.getElementById("Card_Mostrar");
+  const Card_Sorteo = document.getElementById("Card_Sorteo");
+  const layoutIntegrantes = document.getElementById("layoutIntegrantes");
+  const hueco_sorteo = document.getElementById("hueco_sorteo");
   //Array para los integrantes
   const Integrantes = [];
+  //variable para los integrantes
+  let InfoIntegrantes
   // Aplicar modo guardado al cargar
   window.addEventListener("DOMContentLoaded", () => {
     const modoGuardado = localStorage.getItem("modo");
@@ -50,6 +57,7 @@
     Card_Fecha.style.display = "none";
     Card_Presupuesto.style.display = "none";
     Card_Mostrar.style.display = "none";
+    Card_Sorteo.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -159,6 +167,13 @@
     MostrarInfo();
   });
 
+  ContinuarButtonMostrar.addEventListener("click", (e) => {
+    e.preventDefault();
+    Card_Mostrar.style.display = "none";
+    MostrarPiezas();
+    MostrarSorteos();
+  })
+
   selectCelebracion.addEventListener("click", (e) => {
       e.preventDefault();
       if(selectCelebracion.value == "Otro"){
@@ -198,6 +213,25 @@
 
   });
 
+  //Funciones del hueco
+  hueco_sorteo.addEventListener("dragover", e => {
+    e.preventDefault();
+  })
+
+  hueco_sorteo.addEventListener("drop", (e) => {
+    e.preventDefault();
+    let raw = e.dataTransfer.getData("text/plain");
+    if(!raw) return;
+
+    let data = JSON.parse(raw);
+    const pieza = document.getElementById(data.id);
+
+    if(!pieza) return;
+    console.log(pieza)
+    hueco_sorteo.innerHTML = pieza.innerHTML;
+
+    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteado}!`
+  })
   //Funciones Internas
   function agregarIntegrante(index, nombre){
     let html
@@ -313,9 +347,9 @@
 
   function MostrarInformacionIntegrantes(){
     
-    const InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
+    InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
-      console.log(InfoIntegrantes);
+      //console.log(InfoIntegrantes);
       let html = "";
       let index = 0;
       InfoIntegrantes.forEach(Item => {
@@ -335,3 +369,86 @@
     ContainerInfoGeneral.innerHTML = MostrarInformacionGeneral();
     Tabla_Cuerpo.innerHTML = MostrarInformacionIntegrantes();
   }
+
+  function MostrarPiezas(){
+    Card_Sorteo.style.display ="block"
+    InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
+    if (InfoIntegrantes) {
+      let html ="";
+      InfoIntegrantes.forEach(Item => {
+        html += `<div class="container-sm py-3" id="nombre_Arrastre-${Item.id}" draggable="true">
+                    <p class="text-secondary small">
+                      ${Item.nombre}
+                    </p>
+                </div>`
+      })
+      layoutIntegrantes.innerHTML = html;
+    }
+  }
+
+  function Sortear(){
+    const sorteo = [];
+    let eleccion
+    let InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
+    if(InfoIntegrantes){
+      let random = [];
+      for(let j = 0; j<InfoIntegrantes.length; j++){
+        random[j] = j;
+      }
+      random = revolverRandom(random)
+      let index = 0;
+      InfoIntegrantes.forEach(Item => {
+        let num = random[index];
+        let exclusiones =  Item.exclusiones; 
+        if (exclusiones.length = 0) {
+            eleccion = {
+            nombre: Item.nombre,
+            sorteado: InfoIntegrantes[num].nombre
+            }
+        } else {
+          for (let index = 0; index < exclusiones.length; index++) {
+            if(InfoIntegrantes[num].nombre != exclusiones[index]){
+              eleccion = {
+                nombre: Item.nombre,
+                sorteado: InfoIntegrantes[num].nombre
+              }
+            }
+          }
+        }
+        sorteo.push(eleccion);
+        index++
+      });
+    }
+
+    return sorteo;
+  }
+
+  function MostrarSorteos(){
+    let sorteo = Sortear();
+    let index = 0;
+    InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
+    if(InfoIntegrantes){
+        InfoIntegrantes.forEach(Item => {
+          const id = `nombre_Arrastre-${Item.id}`
+          DragBox = document.getElementById(id);
+
+          DragBox.addEventListener("dragstart", (e) => {
+            const data = {
+              id: id,
+              sorteado: sorteo[index]};
+            e.dataTransfer.setData("text/plain", JSON.stringify(data));
+
+            e.dataTransfer.effectAllowed = "move";
+          });
+          index++;
+        });
+    }
+  }
+
+  function revolverRandom(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}

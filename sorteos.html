@@ -210,41 +210,62 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Mostrar lista -->
-            <div class="card shadow-lg border-0" id="Card_Mostrar" style="max-width:400px; width:100%;">
-                <div class="card-body">
+                    <!-- Mostrar lista -->
+                    <div class="card shadow-lg border-0" id="Card_Mostrar" style="max-width:400px; width:100%;">
+                        <div class="card-body">
 
-                    <h3 class="text-center mb-4">Resumen de Intercambio</h3>
+                            <h3 class="text-center mb-4">Resumen de Intercambio</h3>
 
-                    <p class="text-secondary small">
-                        Aqui se muestra toda la Informacion del intercambio
-                    </p>
+                            <p class="text-secondary small">
+                                Aqui se muestra toda la Informacion del intercambio
+                            </p>
 
-                    <div class="py-3" id="ContainerInfoGeneral">
-                        
+                            <div class="py-3" id="ContainerInfoGeneral">
+                                
+                            </div>
+
+                            <div class="table-responsive py-3" id="ContainerInfoPersona">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Integrante</th>
+                                            <th scope="col">Exclusiones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="Tabla_Cuerpo">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="py-3">
+                                <a href="#" id="ContinuarButtonMostrar" class="btn btn-success">
+                                    Continuar
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="table-responsive py-3" id="ContainerInfoPersona">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Integrante</th>
-                                    <th scope="col">Exclusiones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="Tabla_Cuerpo">
+                    <!-- Sorteo -->
+                     <div class="card shadow-lg border border-2" id="Card_Sorteo" style="max-width:1200px; width:100%;">
+                        <div class="card-body">
 
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="py-3">
-                        <a href="#" id="ContinuarButtonPresupuesto" class="btn btn-success">
-                            Continuar
-                        </a>
+                            <h3 class="text-center mb-4">¡Ve quien te toco!</h3>
+                             <p class="text-secondary small">
+                                Arrastre su nombre a la caja para ver quien le toco
+                            </p>
+                            <div id="layoutIntegrantes">
+
+                            </div>
+                            <div id="hueco_sorteo" class="container py-3">
+                                
+                            </div>
+
+                            <div class="py-3">
+                                <h3 class="text-center mb-4" id="nombre_Sorteado"></h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

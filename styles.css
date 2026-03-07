@@ -86,3 +86,8 @@ body{
 #Card_Organizador{
     display:none;
 }
+
+#hueco_sorteo{
+    
+    border: 1px solid #aaaaaa;
+}
