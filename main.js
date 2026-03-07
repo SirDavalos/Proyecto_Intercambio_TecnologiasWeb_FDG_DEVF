@@ -16,18 +16,21 @@
   const textBoxCelebracion = document.getElementById("textBoxCelebracion");
   const textBoxPresupuesto = document.getElementById("textBoxPresupuesto");
   const inputFecha = document.getElementById("inputFecha");
+  const Tabla_Cuerpo = document.getElementById("Tabla_Cuerpo");
   //Contenedores
   const Card_Integrante = document.getElementById("Card_Integrante");
   const Card_Organizador = document.getElementById("Card_Organizador");
   const Card_Exclusiones = document.getElementById("Card_Exclusiones");
   const Card_Presupuesto = document.getElementById("Card_Presupuesto");
-  const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
+  const ContainerIntegrantes = document.getElementById("ContainerIntegrantes");
+  const ContainerInfoGeneral = document.getElementById("ContainerInfoGeneral");
+  const ContainerInfoPersona = document.getElementById("ContainerInfoPersona");
   const Exclusiones_Opciones = document.getElementById("Exclusiones_Opciones");
   const Card_Celebracion = document.getElementById("Card_Celebracion");
   const Card_Fecha = document.getElementById("Card_Fecha");
+  const Card_Mostrar = document.getElementById("Card_Mostrar");
   //Array para los integrantes
   const Integrantes = [];
-
   // Aplicar modo guardado al cargar
   window.addEventListener("DOMContentLoaded", () => {
     const modoGuardado = localStorage.getItem("modo");
@@ -46,6 +49,7 @@
     Card_Celebracion.style.display = "none";
     Card_Fecha.style.display = "none";
     Card_Presupuesto.style.display = "none";
+    Card_Mostrar.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -71,6 +75,7 @@
     if (checkOrganizador.checked) {
       agregarIntegrante(0, NombreOrganizador);
     }
+    localStorage.setItem("Organizador", NombreOrganizador);
     Card_Integrante.style.display = "block";
     Card_Organizador.style.display = "none";
   });
@@ -150,6 +155,8 @@
     e.preventDefault();
     localStorage.setItem("Presupuesto", textBoxPresupuesto.value);
     Card_Presupuesto.style.display = "none";
+
+    MostrarInfo();
   });
 
   selectCelebracion.addEventListener("click", (e) => {
@@ -175,7 +182,7 @@
     
   });
 
-    ContainerIntegrantes.addEventListener("click", (e) => {
+  ContainerIntegrantes.addEventListener("click", (e) => {
         if(e.target.classList.contains("btn-close")){
             const item = e.target.parentElement;
             const id = item.id.split("-")[1];
@@ -189,7 +196,7 @@
             item.remove();
         }
 
-    });
+  });
 
   //Funciones Internas
   function agregarIntegrante(index, nombre){
@@ -294,4 +301,37 @@
   function Presupuesto(){
     Card_Presupuesto.style.display ="block";
     textBoxPresupuesto.value = selectPresupuesto.value;
+  }
+
+  function MostrarInformacionGeneral(){
+    const html = `<p class="text-start">Intercambio: ${localStorage.getItem("Celebracion")}</p>
+                <p class="text-start">Nombre del Organizador: ${localStorage.getItem("Organizador")}</p>
+                <p class="text-start">Fecha: ${localStorage.getItem("Fecha")}</p>
+                <p class="text-start">Presupuesto por integrante: ${localStorage.getItem("Presupuesto")}</p>`
+    return html;
+  }
+
+  function MostrarInformacionIntegrantes(){
+    
+    const InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
+    if(InfoIntegrantes){
+      console.log(InfoIntegrantes);
+      let html = "";
+      let index = 0;
+      InfoIntegrantes.forEach(Item => {
+        index++;
+        html += `<tr>
+                  <th scope="row">${index}</th>
+                  <td>${Item.nombre}</td>
+                  <td>${Item.exclusiones}</td>
+                </tr>`
+      });
+      return html;
+    }
+  } 
+
+  function MostrarInfo(){
+    Card_Mostrar.style.display = "block";
+    ContainerInfoGeneral.innerHTML = MostrarInformacionGeneral();
+    Tabla_Cuerpo.innerHTML = MostrarInformacionIntegrantes();
   }
