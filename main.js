@@ -230,7 +230,7 @@
     console.log(pieza)
     hueco_sorteo.innerHTML = pieza.innerHTML;
 
-    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteado}!`
+    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteo_nombre}!`
   })
   //Funciones Internas
   function agregarIntegrante(index, nombre){
@@ -376,7 +376,7 @@
     if (InfoIntegrantes) {
       let html ="";
       InfoIntegrantes.forEach(Item => {
-        html += `<div class="container-sm py-3" id="nombre_Arrastre-${Item.id}" draggable="true">
+        html += `<div class="container-sm py-3" id="nombre_Arrastre_${Item.id}" draggable="true">
                     <p class="text-secondary small">
                       ${Item.nombre}
                     </p>
@@ -388,21 +388,20 @@
 
   function Sortear(){
     const sorteo = [];
-    let eleccion = {
-      nombre: "",
-      sorteado: ""
-    }
     let InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
       let random = [];
       for(let j = 0; j<InfoIntegrantes.length; j++){
         random[j] = j;
       }
-
-      random = revolverRandom(random)
+      ArrayRandom = revolverRandom(random)
       InfoIntegrantes.forEach(Item => {
-        let index = 0;
-        let num = random[index]; //Agarra el primer numero del array aleatorio
+        let eleccion = {
+          nombre: "",
+          sorteado: ""
+        }
+        let index = random.length - 1;
+        let num = ArrayRandom[index]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
         if (exclusiones.length == 0) {
           console.log(num)
@@ -419,25 +418,28 @@
         }
         console.log(eleccion);
         sorteo.push(eleccion);
+        ArrayRandom.pop();
       });
     }
-
     return sorteo;
   }
 
   function MostrarSorteos(){
-    let sorteo = Sortear();
+    const sorteo = Sortear();
     let index = 0;
     InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
         InfoIntegrantes.forEach(Item => {
-          const id = `nombre_Arrastre-${Item.id}`
+          const id = `nombre_Arrastre_${index}`
           DragBox = document.getElementById(id);
-
+          console.log(DragBox)
           DragBox.addEventListener("dragstart", (e) => {
+            console.log(DragBox)
             const data = {
               id: id,
-              sorteado: sorteo[index].sorteado};
+              sorteo_nombre: sorteo[index].sorteado
+            }
+            console.log(data);
             e.dataTransfer.setData("text/plain", JSON.stringify(data));
 
             e.dataTransfer.effectAllowed = "move";
