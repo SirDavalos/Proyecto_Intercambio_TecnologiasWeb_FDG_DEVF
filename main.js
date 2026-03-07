@@ -15,6 +15,7 @@
   const Card_Exclusiones = document.getElementById("Card_Exclusiones");
   const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
   const Exclusiones_Opciones = document.getElementById("Exclusiones_Opciones");
+  const Card_celebracion = document.getElementById("Card_celebracion");
   //Array para los integrantes
   const Integrantes = [];
 
@@ -29,10 +30,11 @@
       boton.classList.add("btn-dark");
     }
     localStorage.clear();
-    localStorage.setItem("modo", modoGuardado)
+    localStorage.setItem("modo", modoGuardado);
     Card_Integrante.style.display = "none";
     Card_Organizador.style.display = "block";
     Card_Exclusiones.style.display = "none";
+    Card_celebracion.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -102,16 +104,20 @@
     Integrantes.forEach(ItemIntegrante => {
       let index = 0;
       Integrantes.forEach(ItemOpciones => {
-        const checkId = document.getElementById(`check_${ItemIntegrante.id}_${ItemOpciones.id}`);
-        if(checkId.checked){
-          ItemIntegrante.exclusiones[index] = ItemOpciones.nombre;
-          index++;
+        if(ItemIntegrante.id != ItemOpciones.id){
+          const checkId = document.getElementById(`check_${ItemIntegrante.id}_${ItemOpciones.id}`);
+          if(checkId.checked){
+            ItemIntegrante.exclusiones[index] = ItemOpciones.nombre;
+            index++;
+          }
         }
-      })
-    })
+      });
+    });
 
     localStorage.setItem("Integrantes", JSON.stringify(Integrantes));
-  })
+    Card_celebracion.style.display ="block";
+    Card_Exclusiones.style.display = "none"
+  });
 
   botonEliminar.forEach((button) => {
     button.addEventListener("click", (e)  => {
@@ -166,5 +172,9 @@
               </div>`
       Exclusiones_Opciones.innerHTML += html;
     });
+    
+  }
+
+  function Celebracion(){
     
   }
