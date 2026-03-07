@@ -405,24 +405,23 @@
       InfoIntegrantes.forEach(Item => {
         let num = random[index]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length === 0) {
-            eleccion = {
-            nombre: Item.nombre,
-            sorteado: InfoIntegrantes[num].nombre
-            }
+        if (exclusiones.length == 0) {
+          console.log(num)
+            eleccion.nombre = Item.nombre;
+            eleccion.sorteado = InfoIntegrantes[num].nombre;
+            ArrayRandom.pop();
         } else {
           for (let i = 0; i < exclusiones.length; i++) {
             if(InfoIntegrantes[num].nombre != exclusiones[i]){
               eleccion.nombre = Item.nombre;
               eleccion.sorteado = InfoIntegrantes[num].nombre;
+              ArrayRandom.pop();
               break;
             }
           }
         }
         //console.log(eleccion);
         sorteo.push(eleccion);
-        random.pop();
-        index++
       });
     }
 
@@ -437,11 +436,13 @@
         InfoIntegrantes.forEach(Item => {
           const id = `nombre_Arrastre-${Item.id}`
           DragBox = document.getElementById(id);
-
+          const i = sorteo[index].sorteado
           DragBox.addEventListener("dragstart", (e) => {
             const data = {
               id: id,
-              sorteado: sorteo[index].sorteado};
+              sorteo_nombre: i
+            }
+            console.log(data);
             e.dataTransfer.setData("text/plain", JSON.stringify(data));
 
             e.dataTransfer.effectAllowed = "move";
