@@ -407,6 +407,7 @@
           console.log(num)
             eleccion.nombre = Item.nombre;
             eleccion.sorteado = InfoIntegrantes[num].nombre;
+            ArrayRandom.pop();
         } else {
           for (let i = 0; i < exclusiones.length; i++) {
             if(InfoIntegrantes[num].nombre != exclusiones[i]){
@@ -419,7 +420,6 @@
         }
         console.log(eleccion);
         sorteo.push(eleccion);
-        
       });
     }
     return sorteo;
