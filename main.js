@@ -186,7 +186,7 @@
     Card_Mostrar.style.display = "none";
     MostrarPiezas();
     MostrarSorteos();
-  });
+  })
 
   selectCelebracion.addEventListener("click", (e) => {
       e.preventDefault();
@@ -244,7 +244,7 @@
     console.log(pieza)
     hueco_sorteo.innerHTML = pieza.innerHTML;
 
-    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteo_nombre}!`
+    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteado}!`
   })
   //Funciones Internas
   function agregarIntegrante(index, nombre){
@@ -390,8 +390,8 @@
     if (InfoIntegrantes) {
       let html ="";
       InfoIntegrantes.forEach(Item => {
-        html += `<div class="container-sm py-3" id="nombre_Arrastre_${Item.id}" draggable="true">
-                    <p class="text-secondary small">
+        html += `<div class="container-sm py-0 border border-2 h-25 mt-1" id="nombre_Arrastre-${Item.id}" draggable="true">
+                    <p class="text-info small">
                       ${Item.nombre}
                     </p>
                 </div>`
@@ -402,8 +402,14 @@
 
   function Sortear(){
     const sorteo = [];
+    let eleccion = {
+      nombre: "",
+      sorteado: ""
+    }
     let InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
+      console.log(InfoIntegrantes);
+      console.log(InfoIntegrantes[0]);
       let random = [];
       for(let j = 0; j<InfoIntegrantes.length; j++){
         random[j] = j;
@@ -451,12 +457,12 @@
   }
 
   function MostrarSorteos(){
-    const sorteo = Sortear();
+    let sorteo = Sortear();
     let index = 0;
     InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
         InfoIntegrantes.forEach(Item => {
-          const id = `nombre_Arrastre_${index}`
+          const id = `nombre_Arrastre-${Item.id}`
           DragBox = document.getElementById(id);
           const i = sorteo[index].sorteado
           DragBox.addEventListener("dragstart", (e) => {
