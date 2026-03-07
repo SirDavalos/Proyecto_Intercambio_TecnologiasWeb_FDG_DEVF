@@ -412,13 +412,14 @@
             if(InfoIntegrantes[num].nombre != exclusiones[i]){
               eleccion.nombre = Item.nombre;
               eleccion.sorteado = InfoIntegrantes[num].nombre;
+              ArrayRandom.pop();
               break;
             }
           }
         }
         console.log(eleccion);
         sorteo.push(eleccion);
-        ArrayRandom.pop();
+        
       });
     }
     return sorteo;
@@ -432,12 +433,11 @@
         InfoIntegrantes.forEach(Item => {
           const id = `nombre_Arrastre_${index}`
           DragBox = document.getElementById(id);
-          console.log(DragBox)
+          const i = sorteo[index].sorteado
           DragBox.addEventListener("dragstart", (e) => {
-            console.log(DragBox)
             const data = {
               id: id,
-              sorteo_nombre: sorteo[index].sorteado
+              sorteo_nombre: i
             }
             console.log(data);
             e.dataTransfer.setData("text/plain", JSON.stringify(data));
