@@ -172,7 +172,7 @@
     Card_Mostrar.style.display = "none";
     MostrarPiezas();
     MostrarSorteos();
-  })
+  });
 
   selectCelebracion.addEventListener("change", (e) => {
       e.preventDefault();
@@ -394,22 +394,20 @@
     }
     let InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
-      console.log(InfoIntegrantes);
-      console.log(InfoIntegrantes[0]);
       let random = [];
       for(let j = 0; j<InfoIntegrantes.length; j++){
         random[j] = j;
       }
+
       random = revolverRandom(random)
-      let index = 0;
       InfoIntegrantes.forEach(Item => {
+        let index = 0;
         let num = random[index]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length === 0) {
-            eleccion = {
-            nombre: Item.nombre,
-            sorteado: InfoIntegrantes[num].nombre
-            }
+        if (exclusiones.length == 0) {
+          console.log(num)
+            eleccion.nombre = Item.nombre;
+            eleccion.sorteado = InfoIntegrantes[num].nombre;
         } else {
           for (let i = 0; i < exclusiones.length; i++) {
             if(InfoIntegrantes[num].nombre != exclusiones[i]){
@@ -419,10 +417,8 @@
             }
           }
         }
-        //console.log(eleccion);
+        console.log(eleccion);
         sorteo.push(eleccion);
-        random.pop();
-        index++
       });
     }
 
