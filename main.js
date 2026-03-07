@@ -388,9 +388,14 @@
 
   function Sortear(){
     const sorteo = [];
-    let eleccion
+    let eleccion = {
+      nombre: "",
+      sorteado: ""
+    }
     let InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
+      console.log(InfoIntegrantes);
+      console.log(InfoIntegrantes[0]);
       let random = [];
       for(let j = 0; j<InfoIntegrantes.length; j++){
         random[j] = j;
@@ -398,24 +403,25 @@
       random = revolverRandom(random)
       let index = 0;
       InfoIntegrantes.forEach(Item => {
-        let num = random[index];
+        let num = random[index]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length === 0) {
+        if (exclusiones.length = 0) {
             eleccion = {
             nombre: Item.nombre,
             sorteado: InfoIntegrantes[num].nombre
             }
         } else {
-          for (let index = 0; index < exclusiones.length; index++) {
-            if(InfoIntegrantes[num].nombre != exclusiones[index]){
-              eleccion = {
-                nombre: Item.nombre,
-                sorteado: InfoIntegrantes[num].nombre
-              }
+          for (let i = 0; i < exclusiones.length; i++) {
+            if(InfoIntegrantes[num].nombre != exclusiones[i]){
+              eleccion.nombre = Item.nombre;
+              eleccion.sorteado = InfoIntegrantes[num].nombre;
+              break;
             }
           }
         }
+        //console.log(eleccion);
         sorteo.push(eleccion);
+        random.pop();
         index++
       });
     }
