@@ -6,18 +6,22 @@
   const botonEliminar = document.querySelectorAll(".btn-close");
   const ContinuarExclusiones = document.getElementById("ContinuarButtonExclusiones");
   const selectCelebracion = document.getElementById("selectCelebracion");
+  const selectPresupuesto = document.getElementById("selectPresupuesto");
   const ContinuarButtonCelebracion = document.getElementById("ContinuarButtonCelebracion");
   const ContinuarButtonFecha = document.getElementById("ContinuarButtonFecha");
+  const ContinuarButtonPresupuesto = document.getElementById("ContinuarButtonPresupuesto");
   //Inputs
   const checkOrganizador = document.getElementById("CheckOrganizador");
   const textBoxIntegrante = document.getElementById("textBoxIntegrante");
   const textBoxOrganizador = document.getElementById("textBoxOrganizador");
   const textBoxCelebracion = document.getElementById("textBoxCelebracion");
+  const textBoxPresupuesto = document.getElementById("textBoxPresupuesto");
   const inputFecha = document.getElementById("inputFecha");
   //Contenedores
   const Card_Integrante = document.getElementById("Card_Integrante");
   const Card_Organizador = document.getElementById("Card_Organizador");
   const Card_Exclusiones = document.getElementById("Card_Exclusiones");
+  const Card_Presupuesto = document.getElementById("Card_Presupuesto");
   const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
   const Exclusiones_Opciones = document.getElementById("Exclusiones_Opciones");
   const Card_Celebracion = document.getElementById("Card_Celebracion");
@@ -42,6 +46,7 @@
     Card_Exclusiones.style.display = "none";
     Card_Celebracion.style.display = "none";
     Card_Fecha.style.display = "none";
+    Card_Presupuesto.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -137,14 +142,38 @@
     e.preventDefault();
 
     localStorage.setItem("Fecha", inputFecha.value);
-    
+
+    Card_Fecha.style.display = "none";
+    Presupuesto();
   })
+
+  ContinuarButtonPresupuesto.addEventListener("click", (e) => {
+    e.preventDefault();
+    localStorage.setItem("Presupuesto", textBoxPresupuesto.value);
+    Card_Presupuesto.style.display = "none";
+  });
+
   selectCelebracion.addEventListener("click", (e) => {
       e.preventDefault();
       if(selectCelebracion.value == "Otro"){
         textBoxCelebracion.disabled = false;
+        textBoxCelebracion.value = "";
+      }else{
+        textBoxCelebracion.disabled = true;
+        textBoxCelebracion.value = selectCelebracion.value;
       }
-      textBoxCelebracion.value = selectCelebracion.value;
+  });
+
+  selectPresupuesto.addEventListener("click", (e) => {
+    e.preventDefault();
+    if(selectPresupuesto.value == "Otro"){
+      textBoxPresupuesto.disabled = false;
+      textBoxPresupuesto.value = "$";
+    }else{
+      textBoxPresupuesto.disabled = true;
+      textBoxPresupuesto.value = selectPresupuesto.value;
+    }
+    
   });
 
   botonEliminar.forEach((button) => {
@@ -207,7 +236,6 @@
     Card_Celebracion.style.display ="block";
     textBoxCelebracion.value = selectCelebracion.value;
 
-
   }
 
   function Fecha(){
@@ -253,4 +281,9 @@
         
         break;
     }
+  }
+
+  function Presupuesto(){
+    Card_Presupuesto.style.display ="block";
+    textBoxPresupuesto.value = selectPresupuesto.value;
   }
