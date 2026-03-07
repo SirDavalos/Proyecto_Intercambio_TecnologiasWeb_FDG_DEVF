@@ -7,11 +7,13 @@
   const ContinuarExclusiones = document.getElementById("ContinuarButtonExclusiones");
   const selectCelebracion = document.getElementById("selectCelebracion");
   const ContinuarButtonCelebracion = document.getElementById("ContinuarButtonCelebracion");
-  //Inputs de texto
+  const ContinuarButtonFecha = document.getElementById("ContinuarButtonFecha");
+  //Inputs
   const checkOrganizador = document.getElementById("CheckOrganizador");
   const textBoxIntegrante = document.getElementById("textBoxIntegrante");
   const textBoxOrganizador = document.getElementById("textBoxOrganizador");
   const textBoxCelebracion = document.getElementById("textBoxCelebracion");
+  const inputFecha = document.getElementById("inputFecha");
   //Contenedores
   const Card_Integrante = document.getElementById("Card_Integrante");
   const Card_Organizador = document.getElementById("Card_Organizador");
@@ -19,6 +21,7 @@
   const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
   const Exclusiones_Opciones = document.getElementById("Exclusiones_Opciones");
   const Card_Celebracion = document.getElementById("Card_Celebracion");
+  const Card_Fecha = document.getElementById("Card_Fecha");
   //Array para los integrantes
   const Integrantes = [];
 
@@ -38,6 +41,7 @@
     Card_Organizador.style.display = "block";
     Card_Exclusiones.style.display = "none";
     Card_Celebracion.style.display = "none";
+    Card_Fecha.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -125,9 +129,16 @@
 
   ContinuarButtonCelebracion.addEventListener("click", (e) => {
     localStorage.setItem("Celebracion", textBoxCelebracion.value);
-
+    Card_Celebracion.style.display = "none";
+    Fecha();
   })
 
+  ContinuarButtonFecha.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    localStorage.setItem("Fecha", inputFecha.value);
+    
+  })
   selectCelebracion.addEventListener("click", (e) => {
       e.preventDefault();
       if(selectCelebracion.value == "Otro"){
@@ -197,4 +208,49 @@
     textBoxCelebracion.value = selectCelebracion.value;
 
 
+  }
+
+  function Fecha(){
+    Card_Fecha.style.display = "block";
+
+    let celebracion = localStorage.getItem("Celebracion");
+    //Sacar el dia de hot en formato yyyy-mm-dd
+    let hoy = new Date()
+    let dia = hoy.getDate();
+    let mes = hoy.getMonth() + 1;
+    let anio = hoy.getFullYear();
+
+    if(hoy.getDate() < 10){
+      dia = "0"+hoy.getDate();
+    }
+    if(hoy.getMonth() < 10){
+      mes = "0"+ (hoy.getMonth() + 1);
+    }
+    let fechahoy = anio + "-" + mes + "-" + dia;
+    inputFecha.setAttribute("min", fechahoy);
+    console.log(fechahoy);
+    inputFecha.value = fechahoy;
+    switch (celebracion) {
+      case "Navidad":
+        inputFecha.value = "2026-12-01";
+        break;
+      case "Año nuevo":
+        inputFecha.value = "2027-01-01";
+        break;
+      case "San valentin":
+        inputFecha.value = "2027-02-14";
+        break;
+      case "Dia del niño":
+        inputFecha.value = "2026-04-30";
+        break;
+      case "Dia de la madre":
+        inputFecha.value = "2026-05-10";
+        break;
+      case "Dia del Padre":
+        inputFecha.value = "2026-06-21";
+        break;
+      default:
+        
+        break;
+    }
   }
