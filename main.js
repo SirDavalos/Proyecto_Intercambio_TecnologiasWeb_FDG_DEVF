@@ -394,18 +394,17 @@
     }
     let InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
-      console.log(InfoIntegrantes);
-      console.log(InfoIntegrantes[0]);
       let random = [];
       for(let j = 0; j<InfoIntegrantes.length; j++){
         random[j] = j;
       }
+
       random = revolverRandom(random)
-      let index = 0;
       InfoIntegrantes.forEach(Item => {
-        let num = random[index]; //Agarra el primer numero del array aleatorio
+        let num = random[random.length-1]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length = 0) {
+        if (exclusiones.length == 0) {
+          console.log(num)
             eleccion.nombre = Item.nombre;
             eleccion.sorteado = InfoIntegrantes[num].nombre;
         } else {
@@ -417,10 +416,8 @@
             }
           }
         }
-        //console.log(eleccion);
+        console.log(eleccion);
         sorteo.push(eleccion);
-        random.pop();
-        index++
       });
     }
 
