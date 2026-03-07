@@ -15,7 +15,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-cyan shadow">
         <div class="container">
             
-            <a class="navbar-brand fw-bold" href="index.html">TechNova</a>
+            <a class="navbar-brand fw-bold" id="logo" href="index.html">
+                <img src="imagen/LogoDiegoFer.png" alt="">
+            </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                 <span class="navbar-toggler-icon"></span>
@@ -39,142 +41,125 @@
         </div>
     </nav>
 
-    <!-- CONTENIDO -->
-    <div class="container py-5 text-center">
-        <h1 class="fw-bold">Parte de sorteos</h1>
-    </div>
-
-    <div class="container py-4 d-flex justify-content-center">
-        <!-- ORGANIZADOR -->
-        <div class="card shadow-lg border-0" id="Card_Organizador" style="max-width:400px; width:100%;">
-            <div class="card-body">
-
-                <h3 class="card-title text-center mb-4">Organizador</h3>
-
-                <div class="mb-3">
-                    <label class="form-label">Nombre del Organizador</label>
-                    <input type="text" class="form-control" id="textBoxOrganizador" placeholder="Introduzca su nombre">
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="CheckOrganizador">
-                    <label class="form-check-label">
-                        Incluye al organizador en el intercambio
-                    </label>
-                </div>
-
-                <div class="d-grid">
-                    <a href="#" id="ContinuarButtonOrganizador" class="btn btn-primary">
-                        Continuar
-                    </a>
-                </div>
-
-            </div>
+    <main class="container py-5 flex-grow-1">
+        <div class="container py-5 text-center">
+            <h1 class="fw-bold">Parte de sorteos</h1>
         </div>
 
-        <!-- INTEGRANTES -->
-        <div class="card shadow-lg border-0" id="Card_Integrante" style="max-width:400px; width:100%;">
-            <div class="card-body">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-12">
+                    <!-- ORGANIZADOR -->
+                    <div class="card shadow-lg border border-2" id="Card_Organizador" style="max-width:1200px; width:100%;">
+                        <div class="card-body">
 
-                <h3 class="text-center mb-4">Integrantes</h3>
+                            <h3 class="card-title text-center mb-4">Organizador</h3>
 
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="textBoxIntegrante" placeholder="Introduzca un integrante">
-                    <button id="AgregarButtonIntegrante" class="btn btn-primary">+</button>
-                </div>
+                            <div class="mb-3">
+                                <label class="form-label">Nombre del Organizador</label>
+                                <input type="text" class="form-control" id="textBoxOrganizador" placeholder="Introduzca su nombre">
+                            </div>
 
-                <div class="d-grid mb-3">
-                    <a href="#" id="ContinuarButtonIntegrante" class="btn btn-success">
-                        Continuar
-                    </a>
-                </div>
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="CheckOrganizador">
+                                <label class="form-check-label">
+                                    Incluye al organizador en el intercambio
+                                </label>
+                            </div>
 
-                <div class="list-group" id="ContainerIntegrantes">
-                </div>
+                            <div class="d-grid">
+                                <a href="#" id="ContinuarButtonOrganizador" class="btn btn-primary">
+                                    Continuar
+                                </a>
+                            </div>
 
-            </div>
-        </div>
-
-        <!-- EXCLUSIONES -->
-        <div class="card shadow-lg border-0" id="Card_Exclusiones" style="max-width:400px; width:100%;">
-            <div class="card-body">
-
-                <h3 class="text-center mb-4">Exclusiones</h3>
-
-                <p class="text-secondary small">
-                    Indique qué intercambios desea evitar
-                </p>
-
-                <div id="Exclusiones_Opciones" class="mb-3"></div>
-
-                <div class="d-grid">
-                    <a href="#" id="ContinuarButtonExclusiones" class="btn btn-success">
-                        Continuar
-                    </a>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Celebracion -->
-        <div class="card shadow-lg border-0" id="Card_Celebracion" style="max-width:400px; width:100%;">
-            <div class="card-body">
-
-                <h3 class="text-center mb-4">Evento</h3>
-
-                <p class="text-secondary small">
-                    ¿Para que es el intercambio?
-                </p>
-                <div class="d-grid py-3">
-                    <select class="form-select" aria-label="Default select example" id="selectCelebracion">
-                        <option value="Intercambio">Intercambio</option>
-                        <option value="Navidad">Navidad</option>
-                        <option value="Año nuevo">Año nuevo</option>
-                        <option value="San valentin">San valentin</option>
-                        <option value="Dia del niño">Dia del niño</option>
-                        <option value="Dia de la Madre">Dia de la Madre</option>
-                        <option value="Dia del Padre">Dia del Padre</option>
-                        <option value="Otro">Otro...</option>
-                    </select>
-                    <div class="py-3">
-                        <input type="text" class="form-control" id="textBoxCelebracion" disabled>
+                        </div>
                     </div>
-                    
-                    <div class="py-3">
-                        <a href="#" id="ContinuarButtonCelebracion" class="btn btn-success">
-                            Continuar
-                        </a>
+
+                    <!-- INTEGRANTES -->
+                    <div class="card shadow-lg border border-2" id="Card_Integrante" style="max-width:1200px; width:100%;">
+                        <div class="card-body">
+
+                            <h3 class="text-center mb-4">Integrantes</h3>
+
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="textBoxIntegrante" placeholder="Introduzca un integrante">
+                                <button id="AgregarButtonIntegrante" class="btn btn-primary">+</button>
+                            </div>
+
+                            <div class="d-grid mb-3">
+                                <a href="#" id="ContinuarButtonIntegrante" class="btn btn-success">
+                                    Continuar
+                                </a>
+                            </div>
+
+                            <div class="list-group" id="ContainerIntegrantes">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- EXCLUSIONES -->
+                    <div class="card shadow-lg border border-2" id="Card_Exclusiones" style="max-width:1200px; width:100%;">
+                        <div class="card-body">
+
+                            <h3 class="text-center mb-4">Exclusiones</h3>
+
+                            <p class="text-secondary small">
+                                Indique qué intercambios desea evitar
+                            </p>
+
+                            <div id="Exclusiones_Opciones" class="mb-3"></div>
+
+                            <div class="d-grid">
+                                <a href="#" id="ContinuarButtonExclusiones" class="btn btn-success">
+                                    Continuar
+                                </a>
+                            </div>
+
+                </div>
+            </div>
+
+            <!-- Celebracion -->
+            <div class="card shadow-lg border border-2" id="Card_Celebracion" style="max-width:1200px; width:100%;">
+                <div class="card-body">
+
+                    <h3 class="text-center mb-4">Evento</h3>
+
+                    <p class="text-secondary small">
+                        ¿Para que es el intercambio?
+                    </p>
+                    <div class="d-grid py-3">
+                        <select class="form-select" aria-label="Default select example" id="selectCelebracion">
+                            <option value="Intercambio">Intercambio</option>
+                            <option value="Navidad">Navidad</option>
+                            <option value="Año nuevo">Año nuevo</option>
+                            <option value="San valentin">San valentin</option>
+                            <option value="Dia del niño">Dia del niño</option>
+                            <option value="Dia de la Madre">Dia de la Madre</option>
+                            <option value="Dia del Padre">Dia del Padre</option>
+                            <option value="Otro">Otro...</option>
+                        </select>
+                        <div class="py-3">
+                            <input type="text" class="form-control" id="textBoxCelebracion" disabled>
+                        </div>
+                        
+                        <div class="py-3">
+                            <a href="#" id="ContinuarButtonCelebracion" class="btn btn-success">
+                                Continuar
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Fecha -->
-        <div class="card shadow-lg border-0" id="Card_Fecha" style="max-width:400px; width:100%;">
-            <div class="card-body">
-
-                <h3 class="text-center mb-4">Fecha de Intercambio</h3>
-
-                <p class="text-secondary small">
-                    ¿Cuando sera el intercambio?
-                </p>
-
-                <div class="form-check mb-3">
-                    <label class="form-check-label">
-                        Seleccione la fecha donde quiere organizar el intercambio
-                    </label>
-                    <input class="form-control" type="date" id="inputFecha">
-                </div>
-                <div class="py-3">
-                    <a href="#" id="ContinuarButtonFecha" class="btn btn-success">
-                        Continuar
-                    </a>
-                </div>
-            </div>
+    </main>
+    
+    <footer class="footer footer-expand-lg footer-dark footer-cyan shadow">
+        <div class="container text-center">
+            <p class="footer-brand fw-bold">SortTech</p>
         </div>
-    </div>
-    
-    
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

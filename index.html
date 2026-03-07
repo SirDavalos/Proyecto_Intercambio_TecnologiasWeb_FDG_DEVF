@@ -15,7 +15,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-cyan shadow">
         <div class="container">
             
-            <a class="navbar-brand fw-bold" href="index.html">TechNova</a>
+            <a class="navbar-brand fw-bold" id="logo" href="index.html">
+                <img src="imagen/LogoDiegoFer.png" alt="">
+            </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                 <span class="navbar-toggler-icon"></span>
@@ -40,17 +42,37 @@
     </nav>
 
     <!-- CONTENIDO -->
-    <div class="container py-5 text-center">
-        <h1 class="primero fw-bold">TechNova</h1>
-        <p class="text-secondary">El modo seleccionado se guarda automáticamente.</p>
-        <div class="container py-4 d-flex justify-content-center">
-            <div class="d-grid mb-3">
-                <a href="sorteos.html" id="ContinuarButtonIntegrante" class="btn btn-success" >
-                    Continuar
-                </a>
+    <main class="container py-5 flex-grow-1">
+        <div class="row justify-content-center text-center">
+
+            <div class="col-12 col-md-8 col-lg-6">
+                <h1 class="primero fw-bold">SortTech</h1>
+                <p class="text-secondary">
+                    Aqui te proporcionamos una menera de oragnizar intercambios para cualquier festividad 
+                    de la cual puedas necesitar asi que empieza a organizarlos con este programa
+                </p>
+                <br>
+                <p class="text-secondary">
+                    DA CLICK EN "Continuar" PARA COMENZAR
+                </p>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4 mt-4">
+                <div class="d-grid">
+                    <a href="sorteos.html" id="ContinuarButtonIntegrante" class="btn btn-success btn-lg">
+                        Continuar
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="footer footer-expand-lg footer-dark footer-cyan shadow">
+         <div class="container text-center">
+            <p class="footer-brand fw-bold">SortTech</p>
+        </div>
+    </footer>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 

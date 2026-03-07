@@ -6,6 +6,10 @@ body{
     color: white;
 }
 
+#logo img{
+    max-width: 100px;
+}
+
 /* MODO OSCURO GENERAL */
 .modo-oscuro{
     background-color:#121212;
@@ -72,6 +76,11 @@ body{
 /* navbar */
 .navbar-cyan{
     background-color:#03a5babb;
+}
+
+.footer-cyan{
+    background-color:#03a5babb;
+    color: white;
 }
 
 #Card_Organizador{
