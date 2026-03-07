@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modo Claro/Oscuro</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-cyan shadow">
+        <div class="container">
+            
+            <a class="navbar-brand fw-bold" href="index.html">TechNova</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="index.html">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <button id="toggleModo" class="btn btn-light rounded-pill px-3">
+                            🌙
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO -->
+    <div class="container py-5 text-center">
+        <h1 class="fw-bold">Parte de sorteos</h1>
+    </div>
+
+    <div class="container py-4 d-flex justify-content-center">
+        <!-- ORGANIZADOR -->
+        <div class="card shadow-lg border-0" id="Card_Organizador" style="max-width:400px; width:100%;">
+            <div class="card-body">
+
+                <h3 class="card-title text-center mb-4">Organizador</h3>
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre del Organizador</label>
+                    <input type="text" class="form-control" id="textBoxOrganizador" placeholder="Introduzca su nombre">
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="CheckOrganizador">
+                    <label class="form-check-label">
+                        Incluye al organizador en el intercambio
+                    </label>
+                </div>
+
+                <div class="d-grid">
+                    <a href="#" id="ContinuarButtonOrganizador" class="btn btn-primary">
+                        Continuar
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- INTEGRANTES -->
+        <div class="card shadow-lg border-0" id="Card_Integrante" style="max-width:400px; width:100%;">
+            <div class="card-body">
+
+                <h3 class="text-center mb-4">Integrantes</h3>
+
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="textBoxIntegrante" placeholder="Introduzca un integrante">
+                    <button id="AgregarButtonIntegrante" class="btn btn-primary">+</button>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <a href="#" id="ContinuarButtonIntegrante" class="btn btn-success">
+                        Continuar
+                    </a>
+                </div>
+
+                <div class="list-group" id="ContainerIntegrantes">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- EXCLUSIONES -->
+        <div class="card shadow-lg border-0" id="Card_Exclusiones" style="max-width:400px; width:100%;">
+            <div class="card-body">
+
+                <h3 class="text-center mb-4">Exclusiones</h3>
+
+                <p class="text-secondary small">
+                    Indique qué intercambios desea evitar
+                </p>
+
+                <div id="Exclusiones_Opciones" class="mb-3"></div>
+
+                <div class="d-grid">
+                    <a href="#" id="ContinuarButtonExclusiones" class="btn btn-success">
+                        Continuar
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="main.js"></script>
+</body>
+</html>
