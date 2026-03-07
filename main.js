@@ -376,8 +376,8 @@
     if (InfoIntegrantes) {
       let html ="";
       InfoIntegrantes.forEach(Item => {
-        html += `<div class="container-sm py-3" id="nombre_Arrastre-${Item.id}" draggable="true">
-                    <p class="text-secondary small">
+        html += `<div class="container-sm py-0 border border-2 h-25 mt-1" id="nombre_Arrastre-${Item.id}" draggable="true">
+                    <p class="text-info small">
                       ${Item.nombre}
                     </p>
                 </div>`
