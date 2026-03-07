@@ -174,7 +174,7 @@
     MostrarSorteos();
   })
 
-  selectCelebracion.addEventListener("click", (e) => {
+  selectCelebracion.addEventListener("change", (e) => {
       e.preventDefault();
       if(selectCelebracion.value == "Otro"){
         textBoxCelebracion.disabled = false;
