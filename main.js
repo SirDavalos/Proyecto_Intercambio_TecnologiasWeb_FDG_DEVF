@@ -38,6 +38,8 @@
   const Integrantes = [];
   //variable para los integrantes
   let InfoIntegrantes
+  //Variable para los swal
+  let modoSwal;
   // Aplicar modo guardado al cargar
   window.addEventListener("DOMContentLoaded", () => {
     const modoGuardado = localStorage.getItem("modo");
@@ -68,8 +70,10 @@
       boton.textContent = "☀️";
       boton.classList.remove("btn-light");
       boton.classList.add("btn-dark");
+      modoSwal = "dark";
     } else {
       localStorage.setItem("modo", "claro");
+      modoSwal = "dark";
       boton.textContent = "🌙";
       boton.classList.remove("btn-dark");
       boton.classList.add("btn-light");
@@ -102,25 +106,35 @@
   });
 
   ContinuarButtonIntegrante.addEventListener("click", (e) => {
-    Swal.fire({
+    if (Integrantes.length < 3) {
+      Swal.fire({
+        icon: "error",
+        title: "Integrantes invalidos",
+        theme: modoSwal,
+        text: "Tiene que haber como minimo 3 integrantes en el intercambio"
+      })
+    } else {
+      Swal.fire({
       title: "¿Quieres excluir ciertos sorteos?",
       text: "Si gusta, puede evitar que ciertos integrantes saquen nombres especificos",
       icon: "question",
+      theme: modoSwal,
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       denyButtonColor: "#d33",
       confirmButtonText: "Si",
       cancelButtonText: "Cancelar",
-    }).then((result) => {
-      if(result.isConfirmed){
-        Card_Integrante.style.display = "none";
-        Exclusiones();
-      }else if(result.isDenied){
-        Card_Integrante.style.display = "none";
-        Celebracion();
-      }
-    });
+      }).then((result) => {
+        if(result.isConfirmed){
+          Card_Integrante.style.display = "none";
+          Exclusiones();
+        }else if(result.isDenied){
+          Card_Integrante.style.display = "none";
+          Celebracion();
+        }
+      });
+    }
   });
 
   ContinuarExclusiones.addEventListener("click", (e) => {
@@ -309,7 +323,7 @@
     inputFecha.value = fechahoy;
     switch (celebracion) {
       case "Navidad":
-        inputFecha.value = "2026-12-01";
+        inputFecha.value = "2026-12-25";
         break;
       case "Año nuevo":
         inputFecha.value = "2027-01-01";
@@ -395,33 +409,44 @@
         random[j] = j;
       }
       ArrayRandom = revolverRandom(random)
-      InfoIntegrantes.forEach(Item => {
+      console.log(ArrayRandom)
+      console.log(InfoIntegrantes);
+      for (let index = 0; index < InfoIntegrantes.length; index++) {
+        let Item = InfoIntegrantes[index];
         let eleccion = {
           nombre: "",
           sorteado: ""
         }
-        let index = random.length - 1;
-        let num = ArrayRandom[index]; //Agarra el primer numero del array aleatorio
-        let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length == 0) {
-          console.log(num)
-            eleccion.nombre = Item.nombre;
-            eleccion.sorteado = InfoIntegrantes[num].nombre;
-            ArrayRandom.pop();
-        } else {
-          for (let i = 0; i < exclusiones.length; i++) {
-            if(InfoIntegrantes[num].nombre != exclusiones[i]){
+          let r = random.length - 1;
+          let num = ArrayRandom[r]; //Agarra el primer numero del array aleatorio
+          let exclusiones =  Item.exclusiones;
+          if (Item.nombre != InfoIntegrantes[num].nombre) {
+            if (exclusiones.length == 0) {
+              console.log(num)
+                eleccion.nombre = Item.nombre;
+                eleccion.sorteado = InfoIntegrantes[num].nombre;
+                ArrayRandom.pop();
+            } else {
+              for (let i = 0; i < exclusiones.length; i++) {
+                if(InfoIntegrantes[num].nombre == exclusiones[i]){
+                  ArrayRandom = revolverRandom(random);
+                  console.log(ArrayRandom)
+                }else{
+                  break;
+                }
+              }
               eleccion.nombre = Item.nombre;
               eleccion.sorteado = InfoIntegrantes[num].nombre;
               ArrayRandom.pop();
-              break;
             }
+            console.log(eleccion);
+            sorteo.push(eleccion);
+          } else {
+            index--;
+            ArrayRandom = revolverRandom(random);
           }
-        }
-        console.log(eleccion);
-        sorteo.push(eleccion);
-      });
-    }
+        } 
+      }
     return sorteo;
   }
 
