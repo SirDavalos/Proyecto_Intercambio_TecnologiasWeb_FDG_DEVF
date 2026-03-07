@@ -436,7 +436,7 @@
           DragBox.addEventListener("dragstart", (e) => {
             const data = {
               id: id,
-              sorteado: sorteo[index]};
+              sorteado: sorteo[index].sorteado};
             e.dataTransfer.setData("text/plain", JSON.stringify(data));
 
             e.dataTransfer.effectAllowed = "move";
