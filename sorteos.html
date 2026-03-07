@@ -152,6 +152,65 @@
                     </div>
                 </div>
             </div>
+
+             <!-- Fecha -->
+            <div class="card shadow-lg border-0" id="Card_Fecha" style="max-width:400px; width:100%;">
+                <div class="card-body">
+
+                    <h3 class="text-center mb-4">Fecha de Intercambio</h3>
+
+                    <p class="text-secondary small">
+                        ¿Cuando sera el intercambio?
+                    </p>
+
+                    <div class="form-check mb-3">
+                        <label class="form-check-label">
+                            Seleccione la fecha donde quiere organizar el intercambio
+                        </label>
+                        <input class="form-control" type="date" id="inputFecha">
+                    </div>
+                    <div class="py-3">
+                        <a href="#" id="ContinuarButtonFecha" class="btn btn-success">
+                            Continuar
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Presupuesto -->
+            <div class="card shadow-lg border-0" id="Card_Presupuesto" style="max-width:400px; width:100%;">
+                <div class="card-body">
+
+                    <h3 class="text-center mb-4">Presupuesto</h3>
+
+                    <p class="text-secondary small">
+                        ¿Cuanto deben gastar los integrantes del intercambio?
+                    </p>
+
+                    <div class="form-check mb-3">
+                        <label class="form-check-label">
+                            Seleccione el presupuesto
+                        </label>
+                        <select class="form-select" aria-label="Default select example" id="selectPresupuesto">
+                            <option value="$100">$100</option>
+                            <option value="$150">$150</option>
+                            <option value="$200">$200</option>
+                            <option value="$300">$300</option>
+                            <option value="$500">$500</option>
+                            <option value="$1000">$1000</option>
+                            <option value="Otro">Otro...</option>
+                        </select>
+                        <div class="py-3">
+                            <input type="text" class="form-control" id="textBoxPresupuesto" disabled>
+                        </div>
+                    </div>
+                    <div class="py-3">
+                        <a href="#" id="ContinuarButtonPresupuesto" class="btn btn-success">
+                            Continuar
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     
