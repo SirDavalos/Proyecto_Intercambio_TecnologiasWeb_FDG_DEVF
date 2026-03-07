@@ -172,7 +172,7 @@
     Card_Mostrar.style.display = "none";
     MostrarPiezas();
     MostrarSorteos();
-  })
+  });
 
   selectCelebracion.addEventListener("click", (e) => {
       e.preventDefault();
@@ -401,7 +401,8 @@
 
       random = revolverRandom(random)
       InfoIntegrantes.forEach(Item => {
-        let num = random[random.length-1]; //Agarra el primer numero del array aleatorio
+        let index = 0;
+        let num = random[index]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
         if (exclusiones.length == 0) {
           console.log(num)
