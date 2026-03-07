@@ -5,17 +5,20 @@
   const ContinuarIntegrantes = document.getElementById("ContinuarButtonIntegrante");
   const botonEliminar = document.querySelectorAll(".btn-close");
   const ContinuarExclusiones = document.getElementById("ContinuarButtonExclusiones");
+  const selectCelebracion = document.getElementById("selectCelebracion");
+  const ContinuarButtonCelebracion = document.getElementById("ContinuarButtonCelebracion");
   //Inputs de texto
   const checkOrganizador = document.getElementById("CheckOrganizador");
   const textBoxIntegrante = document.getElementById("textBoxIntegrante");
   const textBoxOrganizador = document.getElementById("textBoxOrganizador");
+  const textBoxCelebracion = document.getElementById("textBoxCelebracion");
   //Contenedores
   const Card_Integrante = document.getElementById("Card_Integrante");
   const Card_Organizador = document.getElementById("Card_Organizador");
   const Card_Exclusiones = document.getElementById("Card_Exclusiones");
   const ContainerIntegrantes = document.getElementById("ContainerIntegrantes"); 
   const Exclusiones_Opciones = document.getElementById("Exclusiones_Opciones");
-  const Card_celebracion = document.getElementById("Card_celebracion");
+  const Card_Celebracion = document.getElementById("Card_Celebracion");
   //Array para los integrantes
   const Integrantes = [];
 
@@ -34,7 +37,7 @@
     Card_Integrante.style.display = "none";
     Card_Organizador.style.display = "block";
     Card_Exclusiones.style.display = "none";
-    Card_celebracion.style.display = "none";
+    Card_Celebracion.style.display = "none";
   });
 
   boton.addEventListener("click", () => {
@@ -94,6 +97,7 @@
         Exclusiones();
       }else if(result.isDenied){
         Card_Integrante.style.display = "none";
+        Celebracion();
       }
     });
   });
@@ -115,8 +119,21 @@
     });
 
     localStorage.setItem("Integrantes", JSON.stringify(Integrantes));
-    Card_celebracion.style.display ="block";
     Card_Exclusiones.style.display = "none"
+    Celebracion();
+  });
+
+  ContinuarButtonCelebracion.addEventListener("click", (e) => {
+    localStorage.setItem("Celebracion", textBoxCelebracion.value);
+
+  })
+
+  selectCelebracion.addEventListener("click", (e) => {
+      e.preventDefault();
+      if(selectCelebracion.value == "Otro"){
+        textBoxCelebracion.disabled = false;
+      }
+      textBoxCelebracion.value = selectCelebracion.value;
   });
 
   botonEliminar.forEach((button) => {
@@ -176,5 +193,8 @@
   }
 
   function Celebracion(){
-    
+    Card_Celebracion.style.display ="block";
+    textBoxCelebracion.value = selectCelebracion.value;
+
+
   }
