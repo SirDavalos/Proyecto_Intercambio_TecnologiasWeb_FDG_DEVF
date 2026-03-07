@@ -243,8 +243,7 @@
     if(!pieza) return;
     console.log(pieza)
     hueco_sorteo.innerHTML = pieza.innerHTML;
-
-    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteado}!`
+    nombre_Sorteado.innerHTML = `¡Tu Amigo secreto es ${data.sorteo_nombre}!`
   })
   //Funciones Internas
   function agregarIntegrante(index, nombre){
@@ -462,7 +461,7 @@
     InfoIntegrantes = JSON.parse(localStorage.getItem("Integrantes"));
     if(InfoIntegrantes){
         InfoIntegrantes.forEach(Item => {
-          const id = `nombre_Arrastre-${Item.id}`
+          const id = `nombre_Arrastre-${index}`
           DragBox = document.getElementById(id);
           const i = sorteo[index].sorteado
           DragBox.addEventListener("dragstart", (e) => {
