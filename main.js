@@ -405,7 +405,7 @@
       InfoIntegrantes.forEach(Item => {
         let num = random[index]; //Agarra el primer numero del array aleatorio
         let exclusiones =  Item.exclusiones; 
-        if (exclusiones.length = 0) {
+        if (exclusiones.length === 0) {
             eleccion = {
             nombre: Item.nombre,
             sorteado: InfoIntegrantes[num].nombre
