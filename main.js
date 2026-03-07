@@ -3,7 +3,6 @@
   const continuarOrganizador = document.getElementById("ContinuarButtonOrganizador");
   const AgregarIntegrantes = document.getElementById("AgregarButtonIntegrante");
   const ContinuarIntegrantes = document.getElementById("ContinuarButtonIntegrante");
-  const botonEliminar = document.querySelectorAll(".btn-close");
   const ContinuarExclusiones = document.getElementById("ContinuarButtonExclusiones");
   const selectCelebracion = document.getElementById("selectCelebracion");
   const selectPresupuesto = document.getElementById("selectPresupuesto");
@@ -176,12 +175,21 @@
     
   });
 
-  botonEliminar.forEach((button) => {
-    button.addEventListener("click", (e)  => {
-      const Item = e.target.parentElement;
-      Item.remove();
+    ContainerIntegrantes.addEventListener("click", (e) => {
+        if(e.target.classList.contains("btn-close")){
+            const item = e.target.parentElement;
+            const id = item.id.split("-")[1];
+            // eliminar del array
+            const index = Integrantes.findIndex(i => i.id == id);
+            if(index !== -1){
+                Integrantes.splice(index,1);
+            }
+            // actualizar localStorage
+            localStorage.setItem("Integrantes", JSON.stringify(Integrantes));
+            item.remove();
+        }
+
     });
-  });
 
   //Funciones Internas
   function agregarIntegrante(index, nombre){
